@@ -3,6 +3,7 @@ const movesText = document.getElementById("moves");
 const matchesText = document.getElementById("matches");
 const message = document.getElementById("message");
 const restartBtn = document.getElementById("restart-btn");
+const timerText = document.getElementById("timer");
 
 const symbols = ["🍎", "🎮", "🐱", "⭐", "🔥", "🚀"];
 
@@ -11,6 +12,8 @@ let flippedCards = [];
 let moves = 0;
 let matches = 0;
 let lockBoard = false;
+let seconds = 0;
+let timer;
 
 function startGame() {
   gameBoard.innerHTML = "";
@@ -19,6 +22,11 @@ function startGame() {
   matches = 0;
   flippedCards = [];
   lockBoard = false;
+
+  clearInterval(timer);
+  seconds = 0;
+  timerText.textContent = seconds;
+  starTimer();
 
   movesText.textContent = moves;
   matchesText.textContent = matches;
@@ -43,6 +51,13 @@ function shuffleCards() {
     const randomIndex = Math.floor(Math.random() * (i + 1));
     [cards[i], cards[randomIndex]] = [cards[randomIndex], cards[i]];
   }
+}
+
+function starTimer(){
+  timer = setInterval(() => {
+    seconds++;
+    timerText.textContent = seconds;
+  }, 1000);
 }
 
 function flipCard() {
@@ -75,6 +90,7 @@ function checkMatch() {
     matchesText.textContent = matches;
 
     if (matches === symbols.length) {
+      clearInterval(timer); 
       message.textContent = `You won in ${moves} moves!`;
     }
   } else {
