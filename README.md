@@ -1,5 +1,5 @@
 # __MEMORY MATCHING GAME__!
-> -# A Final Solo Project by Sajed Saleh!
+> A Final Solo Project by Sajed Saleh!
 
 # PROJECT EXPLANATION
 > *My solo project is a browser-based **Memory Matching Game** built using the follow applications:*
