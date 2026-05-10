@@ -1,1 +1,4 @@
-# 3140-Solo-Project
+# __MEMORY MATCHING GAME__!
+
+> Here are the current features built into this project:
+> - yuh
