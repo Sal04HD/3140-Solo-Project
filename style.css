@@ -79,3 +79,15 @@ button {
 button:hover {
   background: #555;
 }
+
+.stats p {
+  background: #f4f4f4;
+  padding: 10px;
+  border-radius: 8px;
+  min-width: 90px;
+}
+
+#moves.updated {
+  color: red;
+  transition: 0.2s;
+}

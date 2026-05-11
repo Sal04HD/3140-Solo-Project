@@ -26,7 +26,7 @@ function startGame() {
   clearInterval(timer);
   seconds = 0;
   timerText.textContent = seconds;
-  starTimer();
+  startTimer();
 
   movesText.textContent = moves;
   matchesText.textContent = matches;
@@ -53,7 +53,7 @@ function shuffleCards() {
   }
 }
 
-function starTimer(){
+function startTimer(){
   timer = setInterval(() => {
     seconds++;
     timerText.textContent = seconds;
@@ -73,6 +73,12 @@ function flipCard() {
   if (flippedCards.length === 2) {
     moves++;
     movesText.textContent = moves;
+
+    movesText.classList.add("updated");
+
+    setTimeout(() => {
+    movesText.classList.remove("updated");
+    }, 200);
     checkMatch();
   }
 }
