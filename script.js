@@ -102,14 +102,24 @@ function checkMatch() {
 
   const bestScore = localStorage.getItem("bestScore");
 
-  if (!bestScore || moves < Number(bestScore)) {
-      localStorage.setItem("bestScore", moves);
-      bestScoreText.textContent = moves;
-      message.textContent = `New best score! You won in ${moves} moves!`;
-    } else {
-      message.textContent = `You won in ${moves} moves! Best score: ${bestScore}`;
-      }
+   if (!bestScore || moves < Number(bestScore)) {
+    localStorage.setItem("bestScore", moves);
+    bestScoreText.textContent = moves;
+
+    message.innerHTML = `
+      🎉 NEW BEST SCORE! 🎉<br>
+      Moves: ${moves}<br>
+      Time: ${seconds} seconds
+    `;
+  } else {
+    message.innerHTML = `
+      🎉 You Won! 🎉<br>
+      Moves: ${moves}<br>
+      Time: ${seconds} seconds<br>
+      Best Score: ${bestScore} moves
+    `;
     }
+  }
   } else {
     lockBoard = true;
 
