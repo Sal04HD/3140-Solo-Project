@@ -115,3 +115,21 @@ button:hover {
 .difficulty button:hover {
   background: #4f6692;
 }
+
+.instructions {
+  color: #444;
+  margin-bottom: 10px;
+}
+
+button {
+  transition: 0.2s;
+}
+
+button:hover {
+  transform: scale(1.05);
+}
+
+#message {
+  margin-top: 15px;
+  line-height: 1.6;
+}
