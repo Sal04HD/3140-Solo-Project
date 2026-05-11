@@ -17,5 +17,6 @@
 > - Time System
 > - Restart Function
 > - Win detection and completion message
+> - Difficulty Mode (Easy, Medium, Hard)
 
 

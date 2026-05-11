@@ -100,3 +100,18 @@ button:hover {
 .card.matched {
   transform: rotateY(180deg);
 }
+
+.difficulty {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin: 15px 0;
+}
+
+.difficulty button {
+  background: #6a85b6;
+}
+
+.difficulty button:hover {
+  background: #4f6692;
+}

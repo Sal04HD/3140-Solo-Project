@@ -6,8 +6,13 @@ const restartBtn = document.getElementById("restart-btn");
 const timerText = document.getElementById("timer");
 const bestScoreText = document.getElementById("best-score");
 
-const symbols = ["🍎", "🎮", "🐱", "⭐", "🔥", "🚀"];
+const easyBtn = document.getElementById("easy-btn");
+const mediumBtn = document.getElementById("medium-btn");
+const hardBtn = document.getElementById("hard-btn");
 
+const allSymbols = ["🍎", "🎮", "🐱", "⭐", "🔥", "🚀", "🐸", "🍕"];
+
+let symbols = allSymbols.slice(0, 6);
 let cards = [];
 let flippedCards = [];
 let moves = 0;
@@ -15,6 +20,7 @@ let matches = 0;
 let lockBoard = false;
 let seconds = 0;
 let timer;
+let difficulty = "medium";
 
 function startGame() {
   gameBoard.innerHTML = "";
@@ -30,8 +36,8 @@ function startGame() {
   startTimer();
 
   movesText.textContent = moves;
-  matchesText.textContent = matches;
-  bestScoreText.textContent = localStorage.getItem("bestScore") || "X";
+  matchesText.textContent = `${matches}/${symbols.length}`;
+  bestScoreText.textContent = localStorage.getItem(`bestScore-${difficulty}`) || "X";
 
   cards = [...symbols, ...symbols];
   shuffleCards();
@@ -46,6 +52,18 @@ function startGame() {
 
     gameBoard.appendChild(card);
   });
+
+  updateBoardSize();
+}
+
+function updateBoardSize() {
+  if (symbols.length === 4) {
+    gameBoard.style.gridTemplateColumns = "repeat(4, 1fr)";
+  } else if (symbols.length === 6) {
+    gameBoard.style.gridTemplateColumns = "repeat(4, 1fr)";
+  } else {
+    gameBoard.style.gridTemplateColumns = "repeat(4, 1fr)";
+  }
 }
 
 function shuffleCards() {
@@ -55,7 +73,7 @@ function shuffleCards() {
   }
 }
 
-function startTimer(){
+function startTimer() {
   timer = setInterval(() => {
     seconds++;
     timerText.textContent = seconds;
@@ -79,8 +97,9 @@ function flipCard() {
     movesText.classList.add("updated");
 
     setTimeout(() => {
-    movesText.classList.remove("updated");
+      movesText.classList.remove("updated");
     }, 200);
+
     checkMatch();
   }
 }
@@ -95,31 +114,34 @@ function checkMatch() {
 
     flippedCards = [];
     matches++;
-    matchesText.textContent = matches;
+    matchesText.textContent = `${matches}/${symbols.length}`;
 
-  if (matches === symbols.length) {
-  clearInterval(timer);
+    if (matches === symbols.length) {
+      clearInterval(timer);
 
-  const bestScore = localStorage.getItem("bestScore");
+      const bestScoreKey = `bestScore-${difficulty}`;
+      const bestScore = localStorage.getItem(bestScoreKey);
 
-   if (!bestScore || moves < Number(bestScore)) {
-    localStorage.setItem("bestScore", moves);
-    bestScoreText.textContent = moves;
+      if (!bestScore || moves < Number(bestScore)) {
+        localStorage.setItem(bestScoreKey, moves);
+        bestScoreText.textContent = moves;
 
-    message.innerHTML = `
-      🎉 NEW BEST SCORE! 🎉<br>
-      Moves: ${moves}<br>
-      Time: ${seconds} seconds
-    `;
-  } else {
-    message.innerHTML = `
-      🎉 You Won! 🎉<br>
-      Moves: ${moves}<br>
-      Time: ${seconds} seconds<br>
-      Best Score: ${bestScore} moves
-    `;
+        message.innerHTML = `
+          🎉 NEW BEST SCORE! 🎉<br>
+          Difficulty: ${difficulty}<br>
+          Moves: ${moves}<br>
+          Time: ${seconds} seconds
+        `;
+      } else {
+        message.innerHTML = `
+          🎉 You Won! 🎉<br>
+          Difficulty: ${difficulty}<br>
+          Moves: ${moves}<br>
+          Time: ${seconds} seconds<br>
+          Best Score: ${bestScore} moves
+        `;
+      }
     }
-  }
   } else {
     lockBoard = true;
 
@@ -135,6 +157,24 @@ function checkMatch() {
     }, 800);
   }
 }
+
+easyBtn.addEventListener("click", () => {
+  difficulty = "Easy";
+  symbols = allSymbols.slice(0, 4);
+  startGame();
+});
+
+mediumBtn.addEventListener("click", () => {
+  difficulty = "Medium";
+  symbols = allSymbols.slice(0, 6);
+  startGame();
+});
+
+hardBtn.addEventListener("click", () => {
+  difficulty = "Hard";
+  symbols = allSymbols.slice(0, 8);
+  startGame();
+});
 
 restartBtn.addEventListener("click", startGame);
 
