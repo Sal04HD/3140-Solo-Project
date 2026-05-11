@@ -4,6 +4,7 @@ const matchesText = document.getElementById("matches");
 const message = document.getElementById("message");
 const restartBtn = document.getElementById("restart-btn");
 const timerText = document.getElementById("timer");
+const bestScoreText = document.getElementById("best-score");
 
 const symbols = ["🍎", "🎮", "🐱", "⭐", "🔥", "🚀"];
 
@@ -30,6 +31,7 @@ function startGame() {
 
   movesText.textContent = moves;
   matchesText.textContent = matches;
+  bestScoreText.textContent = localStorage.getItem("bestScore") || "X";
 
   cards = [...symbols, ...symbols];
   shuffleCards();
@@ -95,9 +97,18 @@ function checkMatch() {
     matches++;
     matchesText.textContent = matches;
 
-    if (matches === symbols.length) {
-      clearInterval(timer); 
-      message.textContent = `You won in ${moves} moves!`;
+  if (matches === symbols.length) {
+  clearInterval(timer);
+
+  const bestScore = localStorage.getItem("bestScore");
+
+  if (!bestScore || moves < Number(bestScore)) {
+      localStorage.setItem("bestScore", moves);
+      bestScoreText.textContent = moves;
+      message.textContent = `New best score! You won in ${moves} moves!`;
+    } else {
+      message.textContent = `You won in ${moves} moves! Best score: ${bestScore}`;
+      }
     }
   } else {
     lockBoard = true;
