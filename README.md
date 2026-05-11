@@ -19,4 +19,8 @@
 > - Win detection and completion message
 > - Difficulty Mode (Easy, Medium, Hard)
 
+# HOW TO START
+> 1. Download the project files.
+> 2. Open the project folder.
+> 3. Open index.html in your browser. 
 
